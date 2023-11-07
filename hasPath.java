@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class dfs {
+public class hasPath {
 
     static class Edges
     {
@@ -51,19 +51,21 @@ public class dfs {
     }
    
 
-    public static void dfs(ArrayList<Edges> graph[],int curr_vertices,boolean visited[])
-    {
-        System.out.println(curr_vertices);
-        visited[curr_vertices]=true;
-        for(int i=0;i<graph[curr_vertices].size();i++)
-        {
-            if(!visited[graph[curr_vertices].get(i).dest])
-            {
-                dfs(graph, graph[curr_vertices].get(i).dest, visited);
-            }
-        }
+  public static boolean hasPath(ArrayList<Edges> graph[],int src,int dest,boolean visited[])
+  {
 
+    if(src==dest)return true;
+    visited[src]=true;
+    for(int i=0;i<graph[src].size();i++)
+    {
+        if(!visited[graph[src].get(i).dest] && hasPath(graph, graph[src].get(i).dest, dest, visited))
+        {
+            return true;
+        }
     }
+    return false;
+
+  }
 
 
     
@@ -77,7 +79,8 @@ public class dfs {
         boolean visited[]=new boolean[v+1];
         createGraph(graph);
         // bfs(graph,v);
-        dfs(graph, 0, visited);
+        // dfs(graph, 0, visited);
+       System.out.println( hasPath(graph, 6, 88, visited));
        
         
         
